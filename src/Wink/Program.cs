@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Andtech.Common;
+using Andtech.Wink;
+using System;
 using WindowsInput;
 using WindowsInput.Native;
 
@@ -7,8 +9,24 @@ public class Program
 
 	public static void Main(string[] args)
 	{
-		VirtualKeyCode code;
-		switch (args[0])
+		Config.TryRead(out var config);
+
+		var input = args.Length > 0 ? args[0] : null;
+		var command = input ?? config?.Default;
+		command = config?.ExpandAliases(command) ?? command;
+		var code = GetKeyCode(command);
+
+		Log.WriteLine(code, ConsoleColor.Green);
+
+		new InputSimulator()
+			.Keyboard
+			.KeyPress(code);
+	}
+
+	static VirtualKeyCode GetKeyCode(string command)
+	{
+		VirtualKeyCode code = default;
+		switch (command)
 		{
 			case "play":
 				code = VirtualKeyCode.PLAY;
@@ -32,12 +50,12 @@ public class Program
 				code = VirtualKeyCode.VOLUME_MUTE;
 				break;
 			default:
-				throw new ArgumentException($"Unsupported key event: {args[0]}");
+				Log.Error.WriteLine($"Unsupported key event '{command}'.", ConsoleColor.Red);
+				Environment.Exit(-1);
+				break;
 		}
 
-		new InputSimulator()
-			.Keyboard
-			.KeyPress(code);
+		return code;
 	}
 }
 

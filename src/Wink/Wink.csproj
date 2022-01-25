@@ -24,7 +24,9 @@
 		</When>
 	</Choose>
 	<ItemGroup>
+	  <PackageReference Include="Andtech.Common" Version="0.8.0" />
 	  <PackageReference Include="InputSimulator" Version="1.0.4" />
+	  <PackageReference Include="Tomlyn" Version="0.9.0" />
 	</ItemGroup>
 	
 	<!-- NuGet Packages -->
