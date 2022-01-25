@@ -1,6 +1,7 @@
 # Wink
 ***Win**dows Media **K**ey wrapper*
 
+[![badge](https://img.shields.io/github/v/tag/andtechstudios/wink?label=nuget)](https://gitlab.com/andtech/pkg/-/packages?search[]=wink)
 
 # References
 * [InputSimulator](https://github.com/michaelnoonan/inputsimulator)
